@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\File;
 
 class Post
 {
-    public static function find($slug) 
+    public static function findOne($slug) 
     {
         $path = resource_path("posts/post-{$slug}.html");
     

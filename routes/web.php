@@ -27,7 +27,7 @@ Route::get('/posts', function () {
 Route::get('/posts/{post}', function ($slug) {
 
     // get the post from Post Model 
-    $post = Post::find($slug);
+    $post = Post::findOne($slug);
 
     // return the post view
     return view('post', [

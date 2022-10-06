@@ -14,11 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/posts', function () {
-    // fetch all posts
+Route::get('/', function () {
+    //fetch all post from database
     $posts = Post::fetchAll();
 
-    // return posts view  
     return view('posts', [
         'posts' => $posts,
     ]);

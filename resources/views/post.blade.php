@@ -10,10 +10,13 @@
 <body>
     <div class="container">
         <div class="my-post">
-            <?= $post ?>
+            <h1><?= $post->title; ?></h1>
+            <div>
+                <?= $post->body; ?>
+            </div>
         </div>
         <div class="go-back-link">
-            <a href="/posts">Go Back</a>
+            <a href="/">Go Back</a>
         </div>
     </div>
 </body>

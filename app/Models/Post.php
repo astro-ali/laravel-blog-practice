@@ -33,22 +33,32 @@ class Post
 
     public static function fetchAll()
     {
-        return collect(File::files(resource_path('posts')))
-        ->map(function ($file) {
-            $document = YamlFrontMatter::parseFile($file);
-            return new Post(
-                $document->title,
-                $document->excerpt, 
-                $document->date, 
-                $document->body(),
-                $document->slug,
-            );
+        return cache()->rememberForever('posts.all', function () {
+            return collect(File::files(resource_path('posts')))
+            ->map(function ($file) {
+                $document = YamlFrontMatter::parseFile($file);
+                return new Post(
+                    $document->title,
+                    $document->excerpt, 
+                    $document->date, 
+                    $document->body(),
+                    $document->slug,
+                );
+            })->sortByDesc('date');
         });
-
     }
 
     public static function findOne($slug) 
     {
         return static::fetchAll()->firstWhere('slug', $slug);
+    }
+
+    public static function findOneOrFail($slug) 
+    {
+        $post = static::findOne($slug);
+
+        if(!$post) abort(404);
+
+        return $post;
     }
 }

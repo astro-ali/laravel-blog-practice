@@ -26,10 +26,10 @@ Route::get('/', function () {
 Route::get('/posts/{post}', function ($slug) {
 
     // get the post from Post Model 
-    $post = Post::findOne($slug);
+    $post = Post::findOneOrFail($slug);
 
     // return the post view
     return view('post', [
         'post' => $post
     ]);
-})->where('post', '[0-9]+');
+});
